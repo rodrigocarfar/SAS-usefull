@@ -1,5 +1,6 @@
-/* Call any macro thar receives just 1 parm for all values */
-/* Each value must be separated by spaces                  */
+/* Call any macro that receives 1 parm and loop over the values */
+/* Each value must be separated by spaces                       */
+/* Rodrigo CarFar                                               */
 %macro macroLoop(macroname,values);
  %let i=1;
  %let value=%scan(&values,&i," ");
