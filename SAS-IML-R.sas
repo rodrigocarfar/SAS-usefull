@@ -6,8 +6,6 @@ PROC IML;
 	ENDSUBMIT;
 QUIT;
 
-proc setinit;run;
-
 /* Import sas dataset to be used inside the R code */
 proc iml;
 call ExportDataSetToR("Sashelp.cars", "cars" );
