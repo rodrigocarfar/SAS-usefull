@@ -23,5 +23,6 @@ proc import file=rsultcsv
   dbms=csv
   replace;
   getnames=yes;
+  GUESSINGROWS = MAX;
 RUN;
 %mend PowerShell2Dataset;
