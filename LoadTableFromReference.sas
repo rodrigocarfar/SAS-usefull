@@ -1,7 +1,7 @@
 %macro LoadTableFromReference(fromLib,toLib);
 proc contents data=&fromLib.._all_ directory out=SASDT memtype=data noprint; run;
 PROC SQL NOPRINT;
-  SELECT DISTINCT Member INTO :sasname1-:sasname999 FROM SASDT;
+  SELECT DISTINCT MEMNAME INTO :sasname1-:sasname999 FROM SASDT;
 PROC SQL;
   SELECT COUNT(*) INTO :sasdtct from (select distinct Member FROM SASDT);
 %do n=1 %to &sasdtct;
