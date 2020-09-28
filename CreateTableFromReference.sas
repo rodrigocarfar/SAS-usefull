@@ -8,8 +8,10 @@ PROC SQL;
 %do n=1 %to &sasdtct;
   %let arqsas=&&sasname&n;
   %let arqsasBase=%sysfunc(tranwrd(&arqsas,&fromLib..,));
-  PROC SQL NOPRINT;
-    CREATE TABLE &toLib..&arqsasBase AS
-	SELECT * FROM &arqsas WHERE 1=0;
+  %if not(%sysfunc(exist(&toLib..&arqsasBase))) %then %do;
+    PROC SQL NOPRINT;
+      CREATE TABLE &toLib..&arqsasBase AS
+      SELECT * FROM &arqsas WHERE 1=0;
+  %end;
 %end;
 %mend CreateTableFromReference;
