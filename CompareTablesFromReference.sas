@@ -1,0 +1,14 @@
+%macro CompareTablesFromReference(fromLib,toLib);
+proc contents data=&toLib.._all_ directory out=SASDT memtype=data noprint; run;
+PROC SQL NOPRINT;
+  SELECT DISTINCT MEMNAME INTO :sasname1-:sasname999 FROM SASDT;
+PROC SQL;
+  SELECT COUNT(*) INTO :sasdtct from (select distinct MEMNAME FROM SASDT);
+%do n=1 %to &sasdtct;
+  %let arqsasBase=&&sasname&n;
+  %if %sysfunc(exist(&fromLib..&arqsasBase)) %then %do;
+    proc compare base=&toLib..&arqsasBase compare=&fromLib..&arqsasBase; 
+    run;
+  %end;
+%end;
+%mend CompareTablesFromReference;
